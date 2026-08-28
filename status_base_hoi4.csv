@@ -1,0 +1,17 @@
+unidade,soft_attack,hard_attack,breakthrough,defense
+amphibious_mech,0.1,0.5,0.0,0.0
+blackshirt_assault_battalion,0.1,0.0,0.3,0.0
+bus,0.0,0.0,0.0,8.0
+cavalry,0.0,0.0,0.3,0.0
+engineer,0.0,0.0,1.0,0.15
+flame_tank,0.0,0.0,0.05,0.0
+heavy_armor,0.0,0.0,0.15,0.0
+hq_support,0.0,0.0,0.15,0.1
+infantry,0.1,4.0,0.3,0.0
+light_armor,0.0,0.0,0.15,0.0
+medium_armor,0.0,0.0,0.15,0.0
+modern_armor,0.0,0.0,0.15,0.0
+recon,0.1,0.1,0.3,0.0
+signal,0.0,0.0,0.05,0.0
+sp_artillery_brigade,0.15,0.0,0.0,0.0
+sturmtruppe_battalion,0.1,0.0,0.1,0.0
