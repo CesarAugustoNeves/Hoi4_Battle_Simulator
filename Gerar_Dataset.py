@@ -31,27 +31,33 @@ for i in range(quantidade_batalhas):
     cas_support = random.choice([0, 0, 1]) # 1 para suporte aéreo presente
 
     #-------------------- Matemática do Combate -------------------------#
-
-
-    # Defesa real do defensor (aumenta com nivel de forte e entrincheiramento)
-    def_efetiva = (def_defense * (1 + (def_entrenchment * 0.02)))
     
-    # Ataque real do atacante (reduzido por terreno, fortes e falta de suprimento, aumentado por CAS)
+    FATOR_CALIBRACAO_DEFESA = 0.3
+
+    # Poder ofensivo de cada lado: quanto dano bruto cada divisão consegue
+    # aplicar, considerando composição de tropas (soft/hard) e condições
+    # (terreno, fortificação, suprimento, suporte aéreo)
     penalidade_fortes = max(0.1, 1.0 - (fort_level * 0.15))
     bonificacao_cas = 1.25 if cas_support == 1 else 1.0
-    
-    # O dano do atacante é calculado pela dureza (Hardness) do defensor
-    atk_efetivo = ((atk_soft_attack * (1 - 0.2)) + (atk_hard_attack * 0.2)) * terrain_mod * penalidade_fortes * atk_supply * bonificacao_cas
-    
-    # Regra de Ouro da Blindagem (Armor vs Piercing)
+    atk_efetivo = ((atk_soft_attack * 0.8) + (atk_hard_attack * 0.2)) * terrain_mod * penalidade_fortes * atk_supply * bonificacao_cas
+    def_efetivo = ((def_soft_attack * 0.8) + (def_hard_attack * 0.2)) * def_supply
+
+    # Poder de resistência de cada lado: quanto cada divisão consegue absorver
+    # antes de sofrer dano de fato (defesa/entrincheiramento para o defensor,
+    # breakthrough para o atacante)
+    def_resistencia = def_defense * (1 + (def_entrenchment * 0.02)) * FATOR_CALIBRACAO_DEFESA
+    atk_resistencia = atk_breakthrough * (1 + (atk_hardness * 0.3))
+
+    # Blindagem (Armor vs Piercing)
     multiplicador_dano_tanque = 1.0
     if atk_armor > def_piercing and atk_hardness > 0.3:
         multiplicador_dano_tanque = 1.5 # Tanque do atacante não foi perfurado!
-        
-    # Cálculo de Dano por Turno
-    dano_no_defensor = (atk_efetivo / max(10, def_efetiva - atk_efetivo)) * 10 * multiplicador_dano_tanque
-    dano_no_atacante = (def_soft_attack / max(10, atk_breakthrough - def_soft_attack)) * 10
-    
+
+    # Dano por turno = razão poder/(poder+resistência) * dano máximo teórico.
+    DANO_MAXIMO_POR_TURNO = 60
+    dano_no_defensor = (atk_efetivo / (atk_efetivo + def_resistencia)) * DANO_MAXIMO_POR_TURNO * multiplicador_dano_tanque
+    dano_no_atacante = (def_efetivo / (def_efetivo + atk_resistencia)) * DANO_MAXIMO_POR_TURNO
+
     turnos_defensor = def_org / max(0.1, dano_no_defensor)
     turnos_atacante = atk_org / max(0.1, dano_no_atacante)
     
@@ -78,6 +84,8 @@ for i in range(quantidade_batalhas):
         'cas_support': cas_support,
         'victory': victory
     })
+
+    
 
 df_batalhas = pd.DataFrame(dados_batalhas)
 df_batalhas.to_csv('dataset_treinamento_ia.csv', index=False)
