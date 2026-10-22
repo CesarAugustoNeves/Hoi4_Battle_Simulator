@@ -24,11 +24,3 @@ colunas = df.columns.drop("victory")
 duplicados = df[df.duplicated(subset=colunas, keep=False)]
 
 print(duplicados)
-
-# matriz_corr = df.corr(method="pearson")
-# print(matriz_corr)
-
-plt.figure(figsize=(10, 10))
-sns.heatmap(df.corr(method="pearson"), annot=True, cmap="coolwarm", fmt=".2f", vmin=-1, vmax=1)
-plt.title("Matriz de Correlação de Pearson")
-plt.show()

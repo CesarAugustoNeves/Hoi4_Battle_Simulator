@@ -3,7 +3,7 @@ import math
 import random
 import sys
 
-from Combate import simular_batalha
+from dataset.Combate import simular_batalha
 
 BASE = dict(
     atk_soft_attack=425, atk_hard_attack=204, atk_breakthrough=265,

@@ -1,0 +1,328 @@
+:root {
+    --bg-color: #1e2224;
+    --panel-bg: rgba(43, 48, 51, 0.85);
+    --primary-color: #4CAF50;
+    --primary-hover: #45a049;
+    --text-main: #e0e0e0;
+    --text-muted: #9aa0a6;
+    --border-color: #3e4446;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(
+        rgba(15, 18, 20, 0.80), 
+        rgba(15, 18, 20, 0.90)
+    ), url('hoi4.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+header p {
+    color: var(--text-muted);
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+.panel {
+    background-color: var(--panel-bg);
+    backdrop-filter: blur(8px);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    border: 1px solid var(--border-color);
+}
+
+.panel h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 3px;
+    font-weight: 500;
+}
+
+.field-help {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.form-group input[type="number"],
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(30, 34, 36, 0.8);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    border-radius: 4px;
+}
+
+/* --- Cards de Terreno --- */
+.terrain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.terrain-card {
+    background-color: rgba(30, 34, 36, 0.8);
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    padding: 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.terrain-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.terrain-card.active {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.4);
+    background-color: rgba(76, 175, 80, 0.15);
+}
+
+.terrain-thumb {
+    width: 100%;
+    height: 45px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.terrain-title {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--text-main);
+    display: block;
+    margin-top: 2px;
+}
+
+.terrain-badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: bold;
+    padding: 2px 5px;
+    border-radius: 4px;
+    margin-top: 4px;
+    width: 100%;
+}
+
+.terrain-badge.positive {
+    background-color: rgba(76, 175, 80, 0.2);
+    color: #4CAF50;
+    border: 1px solid rgba(76, 175, 80, 0.4);
+}
+
+.terrain-badge.negative {
+    background-color: rgba(244, 67, 54, 0.2);
+    color: #ff6b6b;
+    border: 1px solid rgba(244, 67, 54, 0.4);
+}
+
+/* --- Layout HOI4 Division Designer --- */
+.hoi4-designer {
+    background: #15181a;
+    border: 2px solid #32383c;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 25px;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+}
+
+.designer-header {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 15px;
+    text-align: center;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #2e3538;
+}
+
+.header-title {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #9aa0a6;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: #202528;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #3a4246;
+}
+
+.designer-body {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.support-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 120px;
+}
+
+.designer-divider {
+    width: 2px;
+    background: linear-gradient(to bottom, #4CAF50, #2e3538);
+    align-self: stretch;
+}
+
+.combat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    flex: 1;
+}
+
+.designer-slot {
+    height: 48px;
+    background: linear-gradient(180deg, #242a2d 0%, #191d1f 100%);
+    border: 1px solid #3c464b;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 6px;
+    gap: 6px;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.designer-slot.active {
+    border-color: #4CAF50;
+    box-shadow: 0 0 6px rgba(76, 175, 80, 0.3);
+    background: linear-gradient(180deg, #28332a 0%, #1a221b 100%);
+}
+
+.designer-slot.empty {
+    border: 1px dashed #2e3538;
+    color: #454d52;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.slot-icon {
+    font-size: 1.1rem;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+}
+
+.slot-text {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #e0e0e0;
+    line-height: 1.1;
+    text-align: center;
+    word-break: break-word;
+}
+
+/* --- Demais elementos --- */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-group input {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.stat-box {
+    background-color: rgba(30, 34, 36, 0.8);
+    padding: 15px;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.stat-label {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}

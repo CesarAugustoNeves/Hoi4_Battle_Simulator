@@ -1,7 +1,7 @@
 import pandas as pd
 import random
 
-from Combate import simular_batalha
+from dataset.Combate import simular_batalha
 
 dados_batalhas = []
 quantidade_batalhas = 15000

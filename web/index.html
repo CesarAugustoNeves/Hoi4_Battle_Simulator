@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOI4 Division Optimizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>HOI4 Division Optimizer</h1>
+            <p>IA e Otimização Estratégica para Hearts of Iron IV</p>
+        </header>
+
+        <main class="dashboard">
+            <!-- Painel de Inputs -->
+            <section class="panel input-panel">
+                <h2>Parâmetros de Combate</h2>
+                <form id="optimizer-form">
+                    
+                    <!-- Seletor Visual de Terrenos -->
+                    <div class="form-group">
+                        <label>Terreno Alvo</label>
+                        <span class="field-help">Eficiência de combate das tropas e penalidades no terreno</span>
+                        <input type="hidden" id="terrain_mod" name="terrain_mod" value="1.0" required>
+                        
+                        <div class="terrain-grid">
+                            <div class="terrain-card active" onclick="selecionarTerreno(this, '1.0')">
+                                <div class="terrain-thumb" style="background-image: url('img/planicie.jpeg');"></div>
+                                <span class="terrain-title">Planície</span>
+                                <span class="terrain-badge positive">100% (Sem penalidade)</span>
+                            </div>
+                            <div class="terrain-card" onclick="selecionarTerreno(this, '0.9')">
+                                <div class="terrain-thumb" style="background-image: url('img/floresta.jpeg');"></div>
+                                <span class="terrain-title">Floresta</span>
+                                <span class="terrain-badge negative">90% (-10% Ataque)</span>
+                            </div>
+                            <div class="terrain-card" onclick="selecionarTerreno(this, '0.8')">
+                                <div class="terrain-thumb" style="background-image: url('img/colina.jpg');"></div>
+                                <span class="terrain-title">Colina</span>
+                                <span class="terrain-badge negative">80% (-20% Ataque)</span>
+                            </div>
+                            <div class="terrain-card" onclick="selecionarTerreno(this, '0.6')">
+                                <div class="terrain-thumb" style="background-image: url('img/montanha.jpg');"></div>
+                                <span class="terrain-title">Montanha</span>
+                                <span class="terrain-badge negative">60% (-40% Ataque)</span>
+                            </div>
+                            <div class="terrain-card" onclick="selecionarTerreno(this, '0.4')">
+                                <div class="terrain-thumb" style="background-image: url('img/pantano.jpeg');"></div>
+                                <span class="terrain-title">Pântano</span>
+                                <span class="terrain-badge negative">40% (-60% Ataque)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fort_level">Nível de Fortificação</label>
+                        <input type="number" id="fort_level" name="fort_level" min="0" max="10" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="combat_width">Largura de Combate (Width)</label>
+                        <input type="number" id="combat_width" name="combat_width" min="10" max="100" value="30">
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="cas_support" name="cas_support" value="1">
+                        <label for="cas_support">Suporte Aéreo Próximo (CAS)</label>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Gerar Template Ideal</button>
+                </form>
+            </section>
+
+            <!-- Painel de Resultados -->
+            <section class="panel result-panel">
+                <h2>Composição Recomendada</h2>
+                
+                <div id="loading" class="hidden">Processando algoritmo de otimização...</div>
+                
+                <div id="results" class="hidden">
+                    <!-- Layout Division Designer estilo HOI4 -->
+                    <div class="hoi4-designer">
+                        <div class="designer-header">
+                            <span class="header-title">Suporte</span>
+                            <span class="header-title">Regimentos de Combate</span>
+                        </div>
+
+                        <div class="designer-body">
+                            <!-- Coluna de Companhias de Suporte (Até 5 slots) -->
+                            <div class="support-column" id="support-slots">
+                                <!-- Injetado via JS -->
+                            </div>
+
+                            <div class="designer-divider"></div>
+
+                            <!-- Grade de Regimentos de Combate (5 Colunas x 5 Linhas) -->
+                            <div class="combat-grid" id="combat-slots">
+                                <!-- Injetado via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-label">Organização</span>
+                            <span class="stat-value" id="stat-org">-</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Soft Attack</span>
+                            <span class="stat-value" id="stat-soft">-</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Breakthrough</span>
+                            <span class="stat-value" id="stat-break">-</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Defesa</span>
+                            <span class="stat-value" id="stat-def">-</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
